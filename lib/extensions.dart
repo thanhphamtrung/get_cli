@@ -1,4 +1,4 @@
-library get_cli.extensions;
+// get_cli extensions
 
 export 'package:get_cli/core/internationalization.dart' show TranslationExt;
 export 'package:get_cli/extensions/list.dart';

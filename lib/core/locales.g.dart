@@ -85,8 +85,6 @@ class LocaleKeys {
   static const sucess_navigation_added = 'sucess_navigation_added';
   static const sucess_file_created = 'sucess_file_created';
   static const sucess_route_created = 'sucess_route_created';
-  static const ask_ios_lang = 'ask_ios_lang';
-  static const ask_android_lang = 'ask_android_lang';
   static const ask_use_null_safe = 'ask_use_null_safe';
   static const ask_use_linter = 'ask_use_linter';
   static const ask_new_page_name = 'ask_new_page_name';
@@ -176,8 +174,6 @@ class Locales {
     'ask_model_name': '无法自动设置model名称，你想用什么名称？',
     'ask_package_already_installed': 'package: %s 已经安装, 你想更新它吗？',
     'ask_lib_not_empty': '你的 lib 文件夹不是空的。你确定要覆盖你的应用吗？ \n 警告:操作不可逆',
-    'ask_ios_lang': '你想在 iOS 端使用什么语言？',
-    'ask_android_lang': '你想在 Android 端使用什么语言？',
     'ask_use_null_safe': '要使用 null safe 吗？',
     'ask_use_linter': '你想用代码检查器吗？',
     'ask_new_page_name': 'page 的名字是？',
@@ -252,8 +248,6 @@ class Locales {
         'Paket: %s bereits installiert, möchten Sie es aktualisieren?',
     'ask_lib_not_empty':
         'Der lib-Ordner ist nicht leer. Sind Sie sicher, dass Sie Ihre Anwendung überschreiben möchten? \n WARNUNG: Diese Aktion ist nicht umkehrbar',
-    'ask_ios_lang': 'Welche Sprache möchten Sie auf iOS verwenden?',
-    'ask_android_lang': 'Welche Sprache möchten Sie auf Android verwenden?',
     'ask_use_null_safe': 'Möchten Sie Null-Safe verwenden?',
     'ask_use_linter': 'Wollen Sie einen Linter verwenden?',
     'ask_new_page_name': 'Wie soll der Name der neuen Seite lauten?',
@@ -344,8 +338,6 @@ class Locales {
         'package: %s already installed, do you want to update?',
     'ask_lib_not_empty':
         'Your lib folder is not empty. Are you sure you want to overwrite your application? \n WARNING: This action is irreversible',
-    'ask_ios_lang': 'What language do you want to use on ios?',
-    'ask_android_lang': 'What language do you want to use on android?',
     'ask_use_null_safe': 'Do you want to use null safe?',
     'ask_use_linter': 'Do you want to use some linter?',
     'ask_new_page_name': 'What is the new name for the page?',

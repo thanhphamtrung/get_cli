@@ -19,7 +19,7 @@ class PubspecUtils {
 
   static String get pubspecString => _pubspecFile.readAsStringSync();
 
-  static get pubspecJson => loadYaml(pubspecString);
+  static dynamic get pubspecJson => loadYaml(pubspecString);
 
   /// separtor
   static final _mapSep = _PubValue<String>(() {
@@ -143,7 +143,7 @@ class PubspecUtils {
     return dependencies.containsKey(package.trim());
   }
 
-  static bool get nullSafeSupport => !pubSpec.environment!['sdk']!
+  static bool get nullSafeSupport => !pubSpec.environment['sdk']!
       .allowsAny(VersionConstraint.parse('<2.12.0'));
 
   /// make sure it is a get_server project

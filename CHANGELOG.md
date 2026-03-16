@@ -1,3 +1,14 @@
+## [1.10.0]
+
+- **BREAKING:** Minimum Dart SDK bumped to 3.11.0
+- Upgraded dart_style to 3.x (new formatter with tall style support)
+- Upgraded dcli to 8.x (fixes process hang issues)
+- Upgraded lints to 6.x, test to 1.30.x
+- Removed dead iOS/Android language selection menus from project creation
+- Replaced deprecated flutter_lints with lints in project templates
+- Fixed all dart analyze warnings and info issues
+- Added proper hashCode implementations to JSON AST node classes
+
 ## [1.9.1]
 
 - Fix yaml parse error
