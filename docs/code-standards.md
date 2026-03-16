@@ -1,8 +1,8 @@
-# Get CLI - Code Standards & Conventions
+# Dex CLI - Code Standards & Conventions
 
 ## Dart Style Guidelines
 
-Get CLI follows Dart's official style guide with conventions optimized for CLI development.
+Dex CLI follows Dart's official style guide with conventions optimized for CLI development with Riverpod + Clean Architecture.
 
 ### File Naming
 
@@ -84,6 +84,48 @@ class MyCommand extends Command {
     // Implementation
   }
 }
+
+### Riverpod Provider Pattern
+
+All generated providers use @riverpod code generation (NOT manual Provider()):
+
+```dart
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'user_provider.g.dart';
+
+// ✓ Correct - Using @riverpod annotation
+@riverpod
+Future<User> fetchUser(FetchUserRef ref) async {
+  final repository = ref.watch(userRepositoryProvider);
+  return repository.getUser();
+}
+
+// ✗ Avoid - Manual Provider() instantiation
+final userProvider = FutureProvider<User>((ref) async {
+  // ...
+});
+```
+
+All generated models and entities use Freezed:
+
+```dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+part 'user.g.dart';
+
+@freezed
+class User with _$User {
+  const factory User({
+    required String id,
+    required String name,
+    required String email,
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+```
 ```
 
 ## Code Patterns
@@ -149,7 +191,7 @@ class PathUtils {
 
 ### 4. Template/Sample Pattern
 
-All code generators implement `Sample` interface:
+All code generators implement `Sample` interface (generates Riverpod + Clean Architecture):
 
 ```dart
 abstract class Sample {
@@ -157,17 +199,47 @@ abstract class Sample {
   String generate(String className, [String? folderPath]);
 }
 
-class GetControllerSample extends Sample {
+// Example: Riverpod Provider Sample
+class RiverpodProviderSample extends Sample {
   @override
-  String get name => 'GetController';
+  String get name => 'RiverpodProvider';
 
   @override
   String generate(String className, [String? folderPath]) {
     return '''
-import 'package:get/get.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ${className}Controller extends GetxController {
-  // Implementation
+part '${className.snakeCase}_provider.g.dart';
+
+@riverpod
+class ${className}Notifier extends _\$${className}Notifier {
+  @override
+  Future<dynamic> build() async {
+    // TODO: Implement
+    return null;
+  }
+}
+    ''';
+  }
+}
+
+// Example: Freezed Entity Sample
+class FreezedEntitySample extends Sample {
+  @override
+  String get name => 'FreezedEntity';
+
+  @override
+  String generate(String className, [String? folderPath]) {
+    return '''
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part '${className.snakeCase}.freezed.dart';
+
+@freezed
+class ${className} with _\$${className} {
+  const factory ${className}({
+    // TODO: Add fields
+  }) = _${className};
 }
     ''';
   }
@@ -253,7 +325,7 @@ String result = template
 Use generated `LocaleKeys` constants:
 
 ```dart
-import 'package:get_cli/core/locales.g.dart';
+import 'package:dex_cli/core/locales.g.dart';
 
 // In code (not UI - this is CLI)
 logger.info(translate(LocaleKeys.project_created));
@@ -354,18 +426,18 @@ void main() {
 
 ### pubspec.yaml Configuration
 
-Get CLI reads from `get_cli` section:
+Dex CLI reads from `dex_cli` section:
 
 ```yaml
-get_cli:
-  separator: "."              # File name separator
-  sub_folder: false           # Use flat hierarchy
+dex_cli:
+  separator: "."              # File name separator (default: "_")
+  sub_folder: true            # Create subdirectories (default: true)
 ```
 
 ### Accessing Configuration
 
 ```dart
-import 'package:get_cli/cli_config/cli_config.dart';
+import 'package:dex_cli/cli_config/cli_config.dart';
 
 final config = CliConfig.read();
 final separator = config.separator; // "." or "_"
@@ -467,6 +539,26 @@ await Process.run('flutter', ['pub', 'add', packageName]);
 await Process.run('sh', ['-c', 'flutter pub add $packageName']);
 ```
 
+## Generated Code Quality Standards
+
+### Riverpod Providers
+- Always use `@riverpod` annotation (NOT manual `Provider()`)
+- Run `dex build` or `dex watch` to generate .g.dart files
+- Providers must be async when calling repository methods
+- Use `ref.watch()` for dependencies between providers
+
+### Freezed Models & Entities
+- All domain entities must be Freezed with `@freezed` annotation
+- All data models must be Freezed with `@freezed` annotation
+- Include `fromJson()` factory for serialization
+- Include `toJson()` method for deserialization
+- Run `dex build` to generate .freezed.dart and .g.dart files
+
+### Layer Separation
+- **Domain:** Only entities, repository interfaces, and use cases
+- **Data:** Models, datasources, repository implementations
+- **Presentation:** Pages (ConsumerWidget), providers, UI logic
+
 ## Code Review Checklist
 
 - [ ] Follows naming conventions (snake_case files, PascalCase classes)
@@ -476,12 +568,17 @@ await Process.run('sh', ['-c', 'flutter pub add $packageName']);
 - [ ] File operations use provided utilities
 - [ ] No hardcoded paths (use GetCli.structure)
 - [ ] Async operations use async/await
-- [ ] Configuration accessed via CliConfig
+- [ ] Configuration accessed via CliConfig (dex_cli section)
 - [ ] Comments for complex logic
 - [ ] Tests added for new functionality
 - [ ] No breaking changes to command interface
+- [ ] Generated code uses @riverpod (NOT manual Provider)
+- [ ] Freezed annotations on all entities/models
+- [ ] Build runner integration tested (@riverpod, Freezed)
 
 ---
 
 **Last Updated:** 2026-03-16
 **Dart Version:** >=3.11.0 <4.0.0
+**Architecture:** Riverpod + Clean Architecture
+**Code Generation:** @riverpod, Freezed, build_runner

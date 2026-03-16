@@ -1,16 +1,16 @@
-# Get CLI - System Architecture
+# Dex CLI - System Architecture
 
 ## High-Level Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                         User Input                           │
-│            get create page:home on modules                   │
+│            dex create feature:auth                           │
 └────────────────┬────────────────────────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Entry Point (bin/get.dart)                │
+│                    Entry Point (bin/dex.dart)                │
 │                                                               │
 │         - Captures arguments                                  │
 │         - Initializes GetCli instance                         │
@@ -34,14 +34,19 @@
 │    Commands Tree:                                             │
 │    ├── create (CommandParent)                                │
 │    │   ├── project                                           │
-│    │   ├── page                                              │
-│    │   ├── screen                                            │
-│    │   ├── controller                                        │
-│    │   ├── view                                              │
-│    │   └── provider                                          │
+│    │   ├── feature                                           │
+│    │   ├── entity                                            │
+│    │   ├── model                                             │
+│    │   ├── usecase                                           │
+│    │   ├── provider                                          │
+│    │   ├── datasource                                        │
+│    │   ├── repository                                        │
+│    │   └── page                                              │
 │    ├── generate                                              │
 │    ├── init                                                  │
 │    ├── install                                               │
+│    ├── build                                                 │
+│    ├── watch                                                 │
 │    └── ...                                                   │
 └────────────────┬────────────────────────────────────────────┘
                  │
@@ -52,7 +57,7 @@
 │    Implementation Modules:                                    │
 │    ├── lib/functions/     (File operations)                  │
 │    ├── lib/common/        (Utilities & services)             │
-│    ├── lib/samples/       (Code templates)                   │
+│    ├── lib/samples/       (Riverpod + Clean Arch templates)  │
 │    └── lib/models/        (Data models)                      │
 └────────────────┬────────────────────────────────────────────┘
                  │
@@ -92,74 +97,73 @@ Concrete Commands extend Command
 ### Command Dispatch Flow
 
 ```
-Input: "get create page:home on modules"
+Input: "dex create feature:auth"
         │
-        ├─ Parse: ["create", "page:home", "on", "modules"]
+        ├─ Parse: ["create", "feature:auth"]
         │
         ▼
     GetCli.findCommand()
         │
         ├─ Match "create" → CreateCommandParent
         │
-        ├─ Match "page" → CreatePageCommand
+        ├─ Match "feature" → CreateFeatureCommand
         │
-        ├─ Extract args: {name: "home", parentFolder: "modules"}
+        ├─ Extract args: {name: "auth"}
         │
         ▼
-    CreatePageCommand.validate()
+    CreateFeatureCommand.validate()
         │
-        ├─ Check: Is 'page' name valid?
+        ├─ Check: Is feature name valid?
         ├─ Check: Is project initialized?
-        ├─ Check: Does parent folder exist?
+        ├─ Check: lib/features directory exists?
         │
         ▼
-    CreatePageCommand.execute()
+    CreateFeatureCommand.execute()
         │
         ├─ Load project structure
-        ├─ Determine architecture (GetX Pattern or CLEAN)
-        ├─ Generate controller from template
-        ├─ Generate view from template
-        ├─ Generate binding from template
-        ├─ Update app_pages.dart (add route)
-        ├─ Export new files
+        ├─ Generate domain layer (entity, repository interface, usecase)
+        ├─ Generate data layer (model, datasource, repository impl)
+        ├─ Generate presentation layer (provider, page)
+        ├─ Create barrel exports
+        ├─ Update main barrel file
         │
         ▼
-    Output: "Page 'home' created successfully!"
+    Output: "Feature 'auth' created successfully! Run 'dex build' to generate Freezed & @riverpod code."
 ```
 
 ## Module Interactions
 
-### Core Flow: Creating a New Page
+### Core Flow: Creating a Feature Module
 
 ```
-User Command: get create page:home
+User Command: dex create feature:auth
         │
         ▼
     lib/core/generator.dart
     (GetCli class)
         │
-        ├─ findCommand() → locate CreatePageCommand
+        ├─ findCommand() → locate CreateFeatureCommand
         │
         ▼
-    lib/commands/impl/create/page/page.dart
-    (CreatePageCommand)
+    lib/commands/impl/create/feature/feature.dart
+    (CreateFeatureCommand)
         │
         ├─ validate()
-        │   └─ Checks pubspec.yaml for architecture
+        │   └─ Checks pubspec.yaml and project structure
         │
         ├─ execute()
-        │   ├─ Call lib/samples/impl/getx_pattern/
-        │   │   ├─ get_controller.dart
-        │   │   ├─ get_view.dart
-        │   │   └─ get_binding.dart
+        │   ├─ Call lib/samples/impl/riverpod_clean_architecture/
+        │   │   ├─ entity.dart (Freezed entity template)
+        │   │   ├─ model.dart (Freezed DTO template)
+        │   │   ├─ datasource.dart
+        │   │   ├─ repository.dart (interface + impl)
+        │   │   ├─ usecase.dart
+        │   │   └─ provider.dart (@riverpod template)
         │   │
         │   ├─ Call lib/functions/create/
         │   │   ├─ create_single_file.dart
         │   │   ├─ create_list_directory.dart
         │   │   └─ create_navigation.dart
-        │   │
-        │   ├─ Call lib/functions/routes/
-        │   │   └─ get_add_route.dart
         │   │
         │   ├─ Call lib/functions/exports_files/
         │   │   └─ add_export.dart
@@ -169,17 +173,26 @@ User Command: get create page:home
         │
         ▼
     File System Updates
-    ├─ Create: lib/modules/home/bindings/home_binding.dart
-    ├─ Create: lib/modules/home/controllers/home_controller.dart
-    ├─ Create: lib/modules/home/views/home_view.dart
-    ├─ Update: lib/app/routes/app_pages.dart (add route)
-    └─ Update: lib/app/routes/app_routes.dart (add constant)
+    ├─ Create: lib/features/auth/
+    │   ├─ data/
+    │   │   ├─ datasources/
+    │   │   ├─ models/
+    │   │   └─ repositories/
+    │   ├─ domain/
+    │   │   ├─ entities/
+    │   │   ├─ repositories/
+    │   │   └─ usecases/
+    │   └─ presentation/
+    │       ├─ pages/
+    │       └─ providers/
+    ├─ Create: barrel exports (auth.dart for each layer)
+    └─ Update: main barrel file
 ```
 
-### Core Flow: Generating Model from JSON
+### Core Flow: Generating Freezed Model from JSON
 
 ```
-User Command: get generate model on home with assets/models/user.json
+User Command: dex generate model on auth with assets/models/user.json
         │
         ▼
     lib/commands/impl/generate/model/model.dart
@@ -200,11 +213,12 @@ User Command: get generate model on home with assets/models/user.json
         │   ├─ Infer Dart types
         │   │   └─ lib/common/utils/json_serialize/model_generator.dart
         │   │
-        │   ├─ Generate Dart class
+        │   ├─ Generate Freezed class
+        │   │   ├─ @freezed annotation
         │   │   ├─ Properties
-        │   │   ├─ Constructor
+        │   │   ├─ factory constructor
         │   │   ├─ fromJson() factory
-        │   │   └─ toJson() method
+        │   │   └─ toJson() method (via .g.dart)
         │   │
         │   ├─ Create file
         │   │   └─ lib/functions/create/create_single_file.dart
@@ -214,8 +228,8 @@ User Command: get generate model on home with assets/models/user.json
         │
         ▼
     File System Updates
-    ├─ Create: lib/modules/home/models/user_model.dart
-    └─ (Optional) Create: lib/modules/home/models/providers/user_provider.dart
+    ├─ Create: lib/features/auth/data/models/user_model.dart (with @freezed)
+    └─ Run: dex build (to generate user_model.freezed.dart and user_model.g.dart)
 ```
 
 ## Data Flow Diagrams
@@ -224,9 +238,9 @@ User Command: get generate model on home with assets/models/user.json
 
 ```
 pubspec.yaml
-├─ get_cli:
+├─ dex_cli:
 │  ├─ separator: "."
-│  └─ sub_folder: false
+│  └─ sub_folder: true
 │
 ▼
 lib/cli_config/cli_config.dart
@@ -236,7 +250,8 @@ lib/cli_config/cli_config.dart
 Commands use CliConfig
 ├─ Determine file naming pattern
 ├─ Determine directory structure
-└─ Apply to all generated files
+├─ Generate appropriate layer structure
+└─ Apply to all generated files (entities, models, providers, etc.)
 ```
 
 ### JSON to Model Generation
@@ -327,7 +342,7 @@ Implicit: Commands created based on user input in `findCommand()`.
 
 ## State Management
 
-Get CLI is **stateless** within command execution. State is managed through:
+Dex CLI is **stateless** within command execution. State is managed through:
 
 1. **Project Configuration** → `pubspec.yaml`
 2. **Project Structure** → File system
@@ -391,51 +406,71 @@ Commands use LocaleKeys
 ├─ logger.success(translate(LocaleKeys.project_created))
 ```
 
-## Extension System
+## Architecture Pattern: Riverpod + Clean Architecture
 
-### Current Supported Patterns
+### Structure
 
-1. **GetX Pattern** (by Kauê)
-   - Module-based structure
-   - Bindings for dependency injection
-   - App pages auto-routing
+Dex CLI generates projects following **Riverpod + Clean Architecture**:
 
-2. **CLEAN Architecture** (by Arktekko/Ekko)
-   - Layered structure (presentation, domain, data)
-   - Clear separation of concerns
+**Domain Layer (Business Logic)**
+- Entities (Freezed)
+- Repository interfaces
+- Use cases
 
-### How Patterns Work
+**Data Layer (Data Access)**
+- Models (Freezed DTOs)
+- Datasources (remote/local)
+- Repository implementations
+
+**Presentation Layer (UI/State)**
+- Pages (ConsumerWidget)
+- Providers (Riverpod @riverpod)
+
+### How Pattern Templates Work
 
 ```
 lib/samples/interface/sample_interface.dart
 ├─ Sample (abstract base)
 │   └─ generate(className, folderPath)
 │
-├─ GetControllerSample
-│   └─ Returns: class extending GetxController
+├─ FreezedEntitySample
+│   └─ Returns: @freezed entity class
 │
-├─ GetViewSample
-│   └─ Returns: StatelessWidget with Obx
+├─ RiverpodProviderSample
+│   └─ Returns: @riverpod provider class
 │
-└─ Concrete implementations for each pattern
-    ├─ lib/samples/impl/getx_pattern/
-    └─ lib/samples/impl/arctekko/
+├─ UseCaseSample
+│   └─ Returns: use case class
+│
+└─ Concrete implementations
+    └─ lib/samples/impl/riverpod_clean_architecture/
+        ├─ entity.dart
+        ├─ model.dart
+        ├─ provider.dart
+        ├─ usecase.dart
+        ├─ datasource.dart
+        ├─ repository.dart
+        ├─ page.dart
+        └─ locales.dart
 ```
 
 ## System Constraints & Assumptions
 
 ### Constraints
 - Must run on Windows, macOS, Linux
-- Requires Dart SDK >=3.0.0 <4.0.0
+- Requires Dart SDK >=3.11.0 <4.0.0
 - Requires Flutter SDK (for Flutter projects)
+- Requires build_runner for code generation
 - Single-threaded execution model
 
 ### Assumptions
-- Project structure follows GetX conventions
+- Project structure follows Riverpod Clean Architecture conventions
 - pubspec.yaml exists and is valid YAML
 - File system is writable
 - Dart/Flutter CLIs are in PATH
 - JSON inputs are valid (with error recovery)
+- Freezed and riverpod dependencies installed
+- build_runner available for code generation
 
 ## Performance Characteristics
 
@@ -460,12 +495,34 @@ lib/samples/interface/sample_interface.dart
 Future enhancements can extend:
 
 1. **New Commands:** Extend `Command` class
-2. **New Patterns:** Implement `Sample` interface
+2. **New Patterns:** Implement `Sample` interface (currently Riverpod + Clean Architecture)
 3. **New Localizations:** Add translation JSON file
-4. **New Templates:** Add sample implementation
+4. **New Templates:** Add sample implementation in riverpod_clean_architecture
 5. **New Utilities:** Add function in appropriate module
+
+## Build Runner Integration
+
+Dex CLI generates code that requires build_runner:
+
+```bash
+# Run code generation once
+dex build
+
+# Watch for changes and regenerate
+dex watch
+
+# Manual build_runner (alternative)
+dart run build_runner build
+dart run build_runner watch
+```
+
+Generated files:
+- `.freezed.dart` - Freezed entity/model implementations
+- `.g.dart` - JSON serialization code
+- `.g.dart` - Riverpod provider code (from @riverpod)
 
 ---
 
 **Last Updated:** 2026-03-16
-**Architecture Version:** 1.10.0
+**Architecture Version:** 0.0.2 (Riverpod + Clean Architecture)
+**Code Generation:** Freezed + Riverpod @riverpod + build_runner

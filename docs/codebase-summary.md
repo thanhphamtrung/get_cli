@@ -1,4 +1,4 @@
-# Get CLI - Codebase Summary
+# Dex CLI - Codebase Summary
 
 ## Repository Statistics
 
@@ -11,13 +11,16 @@
 | **Translation Files** | 8 |
 | **Primary Language** | Dart (SDK >=3.11.0 <4.0.0) |
 | **Repository** | https://github.com/thanhphamtrung/dex_cli |
+| **Executable** | `dex` (compiled from `bin/dex.dart`) |
 
 ## Directory Structure & Breakdown
 
 ```
-get_cli/
+dex_cli/
 ├── bin/
-│   └── get.dart                    - Main entry point (3 LOC)
+│   ├── dex                         - Compiled native binary (executable)
+│   ├── dex.dart                    - Main entry point (Dart source)
+│   └── .dex_cli.yaml               - CLI configuration template
 ├── lib/
 │   ├── get_cli.dart                - Barrel export (3 LOC)
 │   ├── extensions.dart             - Extension exports
@@ -29,10 +32,11 @@ get_cli/
 │   ├── extensions/                 - String/List extensions (86 LOC)
 │   ├── functions/                  - File manipulation (880 LOC)
 │   ├── models/                     - Data models (11 LOC)
-│   └── samples/                    - Code templates (604 LOC)
+│   └── samples/                    - Code templates (Riverpod) (604 LOC)
 ├── test/
 │   └── path/test.dart              - Path utility tests
 ├── translations/                   - i18n JSON files (8 languages)
+├── repomix-output.xml              - Codebase compaction for analysis
 └── pubspec.yaml                    - Project manifest
 ```
 
@@ -46,12 +50,12 @@ Implements the Command Pattern for CLI dispatch.
 - `interface/command.dart` - Abstract Command base class
 - `impl/args_mixin.dart` - Argument parsing mixin
 - `commands_list.dart` - Command registry
-- `impl/create/` - Project/page/screen/controller/view/provider creation
+- `impl/create/` - Feature/entity/model/usecase/provider/datasource/repository/page creation
 - `impl/generate/` - Model & localization generation
 - `impl/install/` - Package dependency management
 - `impl/remove/` - Package removal
 - `impl/sort/` - Import sorting & formatting
-- `impl/init/` - Project structure initialization
+- `impl/init/` - Project structure initialization (Riverpod Clean Architecture)
 - `impl/update/` - Self-update mechanism
 - `impl/version/` - Version display
 - `impl/help/` - Help command
@@ -60,6 +64,16 @@ Implements the Command Pattern for CLI dispatch.
 - `Command` (abstract) - Base for all commands
 - `CommandParent` - Groups subcommands
 - `ArgsMixin` - Parses CLI arguments
+
+**Dex-Specific Commands:**
+- `CreateFeatureCommand` - Generate complete feature modules
+- `CreateEntityCommand` - Freezed domain entities
+- `CreateModelCommand` - Freezed DTO models
+- `CreateUseCaseCommand` - Use case implementations
+- `CreateProviderCommand` - Riverpod providers with @riverpod
+- `CreateDatasourceCommand` - Data layer datasources
+- `CreateRepositoryCommand` - Repository interfaces & implementations
+- `CreatePageCommand` - ConsumerWidget pages
 
 ### 2. Common Module (lib/common/ - 4,317 LOC) [LARGEST]
 
@@ -128,14 +142,22 @@ File and project manipulation utilities.
 
 ### 5. Samples Module (lib/samples/ - 604 LOC)
 
-Template implementations for code generation.
+Template implementations for Riverpod + Clean Architecture code generation.
 
 **Structure:**
 - `interface/sample_interface.dart` - Template base class
-- `impl/getx_pattern/` - GetX pattern templates
-- `impl/arctekko/` - CLEAN architecture templates
-- `impl/get_server/` - Server project templates
-- Individual templates: controller, binding, view, route, provider, locales
+- `impl/riverpod_clean_architecture/` - Riverpod Clean Architecture templates
+- Individual templates: entity, model, usecase, provider, datasource, repository, page, locales
+
+**Dex-Specific Templates:**
+- Freezed entity templates (domain layer)
+- Freezed model templates (data layer)
+- Use case templates (domain layer)
+- Riverpod provider templates with @riverpod code generation
+- Datasource templates (remote/local)
+- Repository interface & implementation templates
+- ConsumerWidget page templates
+- Build runner integration
 
 ### 6. Extensions Module (lib/extensions/ - 86 LOC)
 
@@ -171,26 +193,30 @@ Runtime configuration management.
 ## Command Flow
 
 ```
-User Input: get create page:home
+User Input: dex create feature:auth
     ↓
-bin/get.dart (entry point)
+bin/dex.dart (entry point)
     ↓
 GetCli(arguments).findCommand()
     ├── Recursively searches command tree
     ├── Matches: "create" → CommandParent
-    ├── Matches: "page" → PageCommand
-    ├── Parses args: {name: "home"}
+    ├── Matches: "feature" → CreateFeatureCommand
+    ├── Parses args: {name: "auth"}
     ↓
 command.validate()
     ├── Validates argument presence
     ├── Checks file system
-    ├── Confirms architecture selection
+    ├── Confirms project structure
     ↓
 command.execute()
-    ├── Creates directories
-    ├── Generates controller, view, binding
-    ├── Updates app_pages.dart
-    ├── Adds routes
+    ├── Creates feature directory structure
+    ├── Generates entity (domain layer)
+    ├── Generates model (data layer)
+    ├── Generates datasource (data layer)
+    ├── Generates repository (data + domain layers)
+    ├── Generates usecase (domain layer)
+    ├── Generates provider (presentation layer)
+    ├── Updates exports and barrel files
     ↓
 Success/Error Message
 ```
@@ -208,9 +234,9 @@ Success/Error Message
 - Template variable replacement: `@variable_name`
 
 ### 3. Configuration
-- Project config: `pubspec.yaml` (get_cli section)
+- Project config: `pubspec.yaml` (dex_cli section)
 - Separator: File name separator (e.g., `_` or `.`)
-- sub_folder: Directory hierarchy flag
+- sub_folder: Directory hierarchy flag (true = create subdirectories)
 
 ### 4. i18n Architecture
 - JSON translation files in `translations/`
@@ -220,7 +246,7 @@ Success/Error Message
 ## Dependency Graph
 
 ```
-bin/get.dart
+bin/dex.dart
     ↓
 lib/core/generator.dart (GetCli)
     ├── → lib/commands/commands_list.dart
@@ -230,9 +256,9 @@ lib/core/generator.dart (GetCli)
     └── → Command implementations
         ├── → lib/functions/* (file manipulation)
         ├── → lib/common/utils/shell/ (process execution)
-        ├── → lib/samples/* (templates)
+        ├── → lib/samples/* (Riverpod templates)
         ├── → lib/common/utils/pubspec/ (config)
-        └── → lib/common/utils/json_serialize/ (model generation)
+        └── → lib/common/utils/json_serialize/ (Freezed model generation)
 ```
 
 ## Testing Coverage
@@ -283,12 +309,16 @@ lib/core/generator.dart (GetCli)
 
 ## Build & Deployment
 
-- **Executables:** `get`, `getx` (both point to `bin/get.dart`)
-- **Installation:** `pub global activate get_cli` or `flutter pub global activate get_cli`
-- **Distribution:** pub.dev package
+- **Executable:** `dex` (compiled from `bin/dex.dart`)
+- **Installation Options:**
+  - From source: `dart pub global activate -sgit https://github.com/thanhphamtrung/dex_cli`
+  - Local dev: `dart pub global activate --source path .`
+  - Native binary: `dart compile exe bin/dex.dart -o bin/dex`
+- **Distribution:** GitHub releases + pub.dev package
 
 ---
 
 **Last Updated:** 2026-03-16
 **Codebase Compacted By:** Repomix v1.9.2
 **Repomix Output:** `./repomix-output.xml`
+**Project Status:** Dex CLI (Riverpod + Clean Architecture fork)
