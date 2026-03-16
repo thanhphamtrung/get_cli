@@ -15,9 +15,7 @@ class RemoveCommand extends Command {
       PubspecUtils.removeDependencies(package);
     }
 
-    //if (GetCli.arguments.first == 'remove') {
     await ShellUtils.pubGet();
-    //}
   }
 
   @override
@@ -34,7 +32,7 @@ class RemoveCommand extends Command {
   }
 
   @override
-  String? get codeSample => LogService.code('get remove http');
+  String? get codeSample => LogService.code('dex remove http');
 
   @override
   int get maxParameters => 999;

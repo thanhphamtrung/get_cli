@@ -10,29 +10,36 @@ import 'locales.g.dart';
 
 class Structure {
   static final Map<String, String> _paths = {
-    'page': Directory(replaceAsExpected(
-                path: '${Directory.current.path}/lib/pages/'))
-            .existsSync()
-        ? replaceAsExpected(path: 'lib/pages')
-        : replaceAsExpected(path: 'lib/app/modules'),
-    'widget': replaceAsExpected(path: 'lib/app/widgets/'),
-    'model': replaceAsExpected(path: 'lib/app/data/models'),
+    // Feature-first Clean Architecture paths
+    'page': replaceAsExpected(path: 'lib/features'),
+    'widget': replaceAsExpected(path: 'lib/shared/widgets'),
+    'model': replaceAsExpected(path: 'lib/features'),
     'init': replaceAsExpected(path: 'lib/'),
-    'route': replaceAsExpected(path: 'lib/routes/'),
-    'repository': replaceAsExpected(path: 'lib/app/data/'),
-    'provider': replaceAsExpected(path: 'lib/app/data'),
-    'controller': replaceAsExpected(path: 'lib/app'),
-    'binding': replaceAsExpected(path: 'lib/app'),
-    'view': replaceAsExpected(path: 'lib/app/views/'),
-    //artekko files
-    'screen': replaceAsExpected(path: 'lib/presentation'),
-    'controller.binding':
-        replaceAsExpected(path: 'lib/infrastructure/navigation/bindings'),
-    'navigation': replaceAsExpected(
-        path: 'lib/infrastructure/navigation/navigation.dart'),
-    //generator files
+    'route': replaceAsExpected(path: 'lib/core/router'),
+    'repository': replaceAsExpected(path: 'lib/features'),
+    'provider': replaceAsExpected(path: 'lib/features'),
+    'controller': replaceAsExpected(path: 'lib/features'),
+    'view': replaceAsExpected(path: 'lib/features'),
+    'screen': replaceAsExpected(path: 'lib/features'),
+    'entity': replaceAsExpected(path: 'lib/features'),
+    'usecase': replaceAsExpected(path: 'lib/features'),
+    'datasource': replaceAsExpected(path: 'lib/features'),
+    'feature': replaceAsExpected(path: 'lib/features'),
+    // Generator files
     'generate_locales': replaceAsExpected(path: 'lib/generated'),
   };
+
+  // Feature-first path helpers
+  static String featurePath(String name) =>
+      replaceAsExpected(path: 'lib/features/$name');
+  static String dataPath(String name) =>
+      replaceAsExpected(path: 'lib/features/$name/data');
+  static String domainPath(String name) =>
+      replaceAsExpected(path: 'lib/features/$name/domain');
+  static String presentationPath(String name) =>
+      replaceAsExpected(path: 'lib/features/$name/presentation');
+  static String get corePath => replaceAsExpected(path: 'lib/core');
+  static String get sharedPath => replaceAsExpected(path: 'lib/shared');
 
   static FileModel model(String? name, String command, bool wrapperFolder,
       {String? on, String? folderName}) {

@@ -118,8 +118,8 @@ class GenerateLocalesCommand extends Command {
 
   @override
   String? get codeSample =>
-      LogService.code('get generate locales assets/locales \n'
-          'get generate locales assets/locales on locales');
+      LogService.code('dex generate locales assets/locales \n'
+          'dex generate locales assets/locales on locales');
 
   @override
   int get maxParameters => 1;

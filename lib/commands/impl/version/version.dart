@@ -1,7 +1,7 @@
 import '../../../common/utils/pubspec/pubspec_lock.dart';
 import '../../../core/internationalization.dart';
 import '../../../core/locales.g.dart';
-import '../../../functions/version/print_get_cli.dart';
+import '../../../functions/version/print_dex_cli.dart';
 import '../../interface/command.dart';
 
 // ignore_for_file: avoid_print
@@ -14,7 +14,7 @@ class VersionCommand extends Command {
   Future<void> execute() async {
     var version = await PubspecLock.getVersionCli();
     if (version == null) return;
-    printGetCli();
+    printDexCli();
     print('Version: $version');
   }
 
@@ -32,7 +32,7 @@ class VersionCommand extends Command {
   }
 
   @override
-  String get codeSample => 'get --version';
+  String get codeSample => 'dex --version';
 
   @override
   int get maxParameters => 0;

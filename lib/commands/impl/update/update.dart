@@ -27,7 +27,7 @@ class UpdateCommand extends Command {
   }
 
   @override
-  String get codeSample => 'get update';
+  String get codeSample => 'dex update';
 
   @override
   int get maxParameters => 0;

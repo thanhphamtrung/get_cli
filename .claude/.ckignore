@@ -22,6 +22,9 @@ target
 .git
 coverage
 
+# Allow project-specific build command directory
+!lib/commands/impl/build
+
 # Allow reading these files
 !.env
 !.env.*

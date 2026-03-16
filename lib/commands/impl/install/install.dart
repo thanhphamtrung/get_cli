@@ -50,8 +50,8 @@ class InstallCommand extends Command {
     return true;
   }
 
-  final String? codeSample1 = LogService.code('get install get:3.4.6');
-  final String? codeSample2 = LogService.code('get install get');
+  final String? codeSample1 = LogService.code('dex install get:3.4.6');
+  final String? codeSample2 = LogService.code('dex install get');
 
   @override
   String get codeSample => '''

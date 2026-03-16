@@ -3,15 +3,15 @@ import '../commands/impl/help/help.dart';
 import '../commands/interface/command.dart';
 import '../common/utils/logger/log_utils.dart';
 
-class GetCli {
+class DexCli {
   final List<String> _arguments;
 
-  GetCli(this._arguments) {
+  DexCli(this._arguments) {
     _instance = this;
   }
 
-  static GetCli? _instance;
-  static GetCli? get to => _instance;
+  static DexCli? _instance;
+  static DexCli? get to => _instance;
 
   static List<String> get arguments => to!._arguments;
 
@@ -54,7 +54,7 @@ class ErrorCommand extends Command {
   @override
   Future<void> execute() async {
     LogService.error(error);
-    LogService.info('run `get help` to help', false, false);
+    LogService.info('run `dex help` to help', false, false);
   }
 
   @override

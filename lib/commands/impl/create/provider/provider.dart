@@ -1,24 +1,43 @@
+import 'package:recase/recase.dart';
+
+import '../../../../common/utils/logger/log_utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
-import '../../../../functions/create/create_single_file.dart';
-import '../../../../samples/impl/get_provider.dart';
+import '../../../../core/structure.dart';
+import '../../../../samples/impl/riverpod_clean/riverpod_provider.dart';
 import '../../../interface/command.dart';
 
+/// Creates a @riverpod AsyncNotifier provider in a feature's presentation layer.
+///
+/// Usage: `dex create provider:auth on auth`
 class CreateProviderCommand extends Command {
   @override
   String get commandName => 'provider';
+
   @override
   Future<void> execute() async {
-    var name = this.name;
-    handleFileCreate(name, 'provider', onCommand, onCommand.isNotEmpty,
-        ProviderSample(name), onCommand.isNotEmpty ? 'providers' : '');
+    final providerName = name.snakeCase;
+    final feature = onCommand.snakeCase;
+    if (providerName.isEmpty) {
+      LogService.error('Please provide a provider name.');
+      return;
+    }
+    if (feature.isEmpty) {
+      LogService.error('Please specify target feature with "on" flag.');
+      return;
+    }
+
+    final path =
+        '${Structure.featurePath(feature)}/presentation/providers/${providerName}_provider.dart';
+    RiverpodProviderSample(providerName, path: path)
+        .create(skipFormatter: true);
   }
 
   @override
   String? get hint => Translation(LocaleKeys.hint_create_provider).tr;
 
   @override
-  String get codeSample => 'get create provider:user on data';
+  String get codeSample => 'dex create provider:auth on auth';
 
   @override
   int get maxParameters => 0;

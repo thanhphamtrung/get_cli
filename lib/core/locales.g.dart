@@ -1,4 +1,4 @@
-// DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
+// DO NOT EDIT. This is code generated via package:dex_cli/dex_cli.dart
 
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: constant_identifier_names
@@ -73,7 +73,7 @@ class LocaleKeys {
   static const optional_parameters = 'optional_parameters';
   static const sucess_page_create = 'sucess_page_create';
   static const sucess_locale_generate = 'sucess_locale_generate';
-  static const sucess_getx_pattern_generated = 'sucess_getx_pattern_generated';
+  static const sucess_riverpod_clean_generated = 'sucess_riverpod_clean_generated';
   static const sucess_clean_Pattern_generated =
       'sucess_clean_Pattern_generated';
   static const sucess_file_formatted = 'sucess_file_formatted';
@@ -118,7 +118,7 @@ class Locales {
     'error_invalid_file_or_directory': '%s geçerli bir dosya veya dizin değil',
     'error_package_not_found': 'Paket: %s pub.dev\'de bulunamadı',
     'error_cli_version_not_found': 'Yüklemek istediğiniz sürüm bulunamadı.',
-    'error_update_cli': 'get_cli yükseltilirken bir hata oluştu',
+    'error_update_cli': 'dex_cli yükseltilirken bir hata oluştu',
     'error_folder_not_found': '%s klasörü bulunamadı',
     'error_file_not_found': '%s içinde dosya bulunamadı',
     'error_access_denied': '%s için erişim engellendi',
@@ -137,13 +137,13 @@ class Locales {
     'hint_install': 'Mevcut projeye bir paket yükler (dependencies):',
     'hint_remove': 'Mevcut projedeki bir paketi kaldırır (dependencies):',
     'hint_sort': 'İçe aktarılanları sıralar ve dart dosyalarını biçimlendirir',
-    'hint_update': 'GET_CLI günceller',
+    'hint_update': 'DEX_CLI günceller',
     'hint_version': 'Mevcut CLI sürümünü gösterir\'',
     'info_unnecessary_flag': '%s gerekli değil',
     'info_unnecessary_flag_prural': '%s gerekli değil',
     'info_package_not_installed': 'Paket: %s bu uygulama için yüklenemedi',
     'info_cli_last_version_already_installed':
-        'get_cli\'nin son sürümü zaten yüklü',
+        'dex_cli\'nin son sürümü zaten yüklü',
     'info_no_file_overwritten': 'Hiçbir dosyanın üzerine yazılmadı',
     'info_update_available': 'Bir güncelleme mevcut! Mevcut yüklü sürüm: %s',
     'info_update_available2': 'Yeni sürüm mevcut: %s çalıştırın:',
@@ -152,8 +152,8 @@ class Locales {
     'optional_parameters': 'Opsiyonel parametreler: %s',
     'sucess_page_create': '%s sayfası başarıyla oluşturuldu.',
     'sucess_locale_generate': 'yerel dosyalar başarıyla oluşturuldu.',
-    'sucess_getx_pattern_generated':
-        'GetX Pattern yapısı başarıyla oluşturuldu.',
+    'sucess_riverpod_clean_generated':
+        'Riverpod Clean Architecture yapısı başarıyla oluşturuldu.',
     'sucess_clean_Pattern_generated':
         'CLEAN Pattern yapısı başarıyla oluşturuldu.',
     'sucess_file_formatted': ' \'%s\' başarıyla biçimlendirildi.',
@@ -190,7 +190,7 @@ class Locales {
     'error_invalid_file_or_directory': '%s 不是有效的文件或目录',
     'error_package_not_found': '依赖: %s 在 pub.dev 中没有找到',
     'error_cli_version_not_found': '没有找到已安装版本。',
-    'error_update_cli': '升级 get_cli 错误',
+    'error_update_cli': '升级 dex_cli 错误',
     'error_folder_not_found': '文件夹 %s 未找到',
     'error_file_not_found': '在 %s 中没有找到文件',
     'error_access_denied': '对 %s 的访问被拒绝',
@@ -211,12 +211,12 @@ class Locales {
     'hint_install': '为你的项目安装依赖:',
     'hint_remove': '为你的项目移除依赖:',
     'hint_sort': '排序 import 并格式化 dart 文件',
-    'hint_update': '更新 GET_CLI',
+    'hint_update': '更新 DEX_CLI',
     'hint_version': '显示当前 CLI 版本\'',
     'info_unnecessary_flag': '%s 是多余的',
     'info_unnecessary_flag_prural': '%s 是多余的',
     'info_package_not_installed': 'Package: %s 在本应用中未安装',
-    'info_cli_last_version_already_installed': '您已安装 get_cli 最新版本',
+    'info_cli_last_version_already_installed': '您已安装 dex_cli 最新版本',
     'info_no_file_overwritten': '没有文件被覆盖',
     'info_update_available': '新版本可用！当前版本: %s',
     'info_update_available2': '新版本可用: %s 运行:',
@@ -226,7 +226,7 @@ class Locales {
     'optional_parameters': '可选参数: %s',
     'sucess_page_create': '%s page 创建成功.',
     'sucess_locale_generate': '翻译文件生成成功.',
-    'sucess_getx_pattern_generated': 'GetX 结构生成成功。',
+    'sucess_riverpod_clean_generated': 'Riverpod Clean Architecture 结构生成成功。',
     'sucess_clean_Pattern_generated': 'CLEAN 结构生成成功。',
     'sucess_file_formatted': ' \'%s\' 格式化成功',
     'sucess_package_removed': 'Package: %s 已移除！',
@@ -270,7 +270,7 @@ class Locales {
     'error_cli_version_not_found':
         'die von Ihnen installierte Version wurde nicht gefunden.',
     'error_update_cli':
-        'Es gab einen Fehler bei der Aktualisierung von get_cli',
+        'Es gab einen Fehler bei der Aktualisierung von dex_cli',
     'error_folder_not_found': 'Ordner %s nicht gefunden',
     'error_file_not_found': 'Datei nicht gefunden in %s',
     'error_access_denied': 'Zugriff auf %s verweigert',
@@ -295,14 +295,14 @@ class Locales {
     'hint_remove':
         'Verwenden Sie diese Option, um ein Paket in Ihrem Projekt zu entfernen (dependencies):',
     'hint_sort': 'Importierte Dart-Dateien sortieren und formatieren',
-    'hint_update': 'So aktualisieren Sie GET_CLI',
+    'hint_update': 'So aktualisieren Sie DEX_CLI',
     'hint_version': 'Zeigt die aktuelle CLI-Version an\'',
     'info_unnecessary_flag': 'Das %s ist nicht notwendig',
     'info_unnecessary_flag_prural': 'Die %s ist nicht notwendig',
     'info_package_not_installed':
         'Paket: %s ist in dieser Anwendung nicht installiert',
     'info_cli_last_version_already_installed':
-        'Neueste Version von get_cli bereits installiert',
+        'Neueste Version von dex_cli bereits installiert',
     'info_no_file_overwritten': 'Es wurden keine Dateien überschrieben',
     'info_update_available':
         'Es ist ein Update verfügbar! Aktuell installierte Version: %s',
@@ -313,8 +313,8 @@ class Locales {
     'optional_parameters': 'Optionale Parameter: %s',
     'sucess_page_create': '%s-Page erfolgreich erstellt.',
     'sucess_locale_generate': 'Sprachumgebungsdateien erfolgreich generiert.',
-    'sucess_getx_pattern_generated':
-        'GetX Pattern-Struktur erfolgreich erzeugt.',
+    'sucess_riverpod_clean_generated':
+        'Riverpod Clean Architecture-Struktur erfolgreich erzeugt.',
     'sucess_clean_Pattern_generated':
         'CLEAN Pattern-Struktur erfolgreich erzeugt.',
     'sucess_file_formatted': ' \'%s\' wurde erfolgreich formatiert',
@@ -357,7 +357,7 @@ class Locales {
     'error_package_not_found': 'Package: %s not found in pub.dev.',
     'error_cli_version_not_found':
         'failed to find the version you have installed.',
-    'error_update_cli': 'There was an error upgrading get_cli.',
+    'error_update_cli': 'There was an error upgrading dex_cli.',
     'error_folder_not_found': 'Folder %s not found.',
     'error_file_not_found': 'File not found in %s.',
     'error_access_denied': 'Access denied to %s.',
@@ -379,14 +379,14 @@ class Locales {
     'hint_install': 'Use to install a package in your project (dependencies):',
     'hint_remove': 'Use to remove a package in your project (dependencies):',
     'hint_sort': 'Sort imports and format dart files',
-    'hint_update': 'To update GET_CLI',
+    'hint_update': 'To update DEX_CLI',
     'hint_version': 'Shows the current CLI version\'',
     'info_unnecessary_flag': 'The %s is not necessary',
     'info_unnecessary_flag_prural': 'The %s are not necessary.',
     'info_package_not_installed':
         'Package: %s is not installed in this application.',
     'info_cli_last_version_already_installed':
-        'Latest version of get_cli already installed.',
+        'Latest version of dex_cli already installed.',
     'info_no_file_overwritten': 'No files were overwritten.',
     'info_update_available':
         'There\'s an update available! Current installed version: %s',
@@ -397,8 +397,8 @@ class Locales {
     'optional_parameters': 'Optional parameters: %s',
     'sucess_page_create': '%s page created successfully.',
     'sucess_locale_generate': 'locale files generated successfully.',
-    'sucess_getx_pattern_generated':
-        'GetX Pattern structure successfully generated.',
+    'sucess_riverpod_clean_generated':
+        'Riverpod Clean Architecture structure successfully generated.',
     'sucess_clean_Pattern_generated':
         'CLEAN Pattern structure successfully generated.',
     'sucess_file_formatted': ' \'%s\' was successfully formatted',
@@ -439,7 +439,7 @@ class Locales {
     'error_package_not_found': 'Pacote: %s não encontrado em pub.dev',
     'error_cli_version_not_found':
         'Não foi possível encontrar a versão instalada da CLI',
-    'error_update_cli': 'Ocorreu um erro ao atualizar get_cli',
+    'error_update_cli': 'Ocorreu um erro ao atualizar dex_cli',
     'error_folder_not_found': 'Pasta %s não encontrada',
     'error_file_not_found': 'Arquivo não encontrado em %s',
     'error_access_denied': 'Acesso negado a %s',
@@ -447,7 +447,7 @@ class Locales {
     'example': 'Exemplo:',
     'hint_create_controller': 'Gerar um novo controller',
     'hint_create_page':
-        'Gerar um novo modulo, (controller, view e bindigns) (Use essa opcão se está usando getx_pattern)',
+        'Gerar um novo modulo, (controller, view e bindigns) (Use essa opcão se está usando riverpod_clean)',
     'hint_create_project':
         'Crie um novo projeto, escolha flutter ou get server',
     'hint_create_provider': 'Cria uma classe Provider',
@@ -455,7 +455,7 @@ class Locales {
         'Gera uma nova Screen, [controller, view e bindigns] (Use essa opcão se for está usando clean)',
     'hint_create_view': 'Cria uma nova view',
     'hint_generate_locales':
-        'Gera um arquivo de traduçao comativel com getx usando json files',
+        'Gera um arquivo de traduçao comativel com Riverpod usando json files',
     'hint_generate_model': 'Crie sua classe model apartir de um json',
     'hint_help': 'mostra a tela de help',
     'hint_init': 'Gere a estrutura escolhida em um projeto existente:',
@@ -463,14 +463,14 @@ class Locales {
         'Use para instalar um pacote em seu projeto (dependencies):',
     'hint_remove': 'Use para remover um pacote em seu projeto (dependencies):',
     'hint_sort': 'Classificar os imports e formatar arquivos dart',
-    'hint_update': 'Para atualizar GET_CLI',
-    'hint_version': 'Mostra a versão atual do get_cli',
+    'hint_update': 'Para atualizar DEX_CLI',
+    'hint_version': 'Mostra a versão atual do dex_cli',
     'info_unnecessary_flag': 'A flag: %s não é necessária',
     'info_unnecessary_flag_prural': 'As flags: %s não são necessárias',
     'info_package_not_installed':
         'Pacote: %s não está instalado neste aplicativo',
     'info_cli_last_version_already_installed':
-        'Versão mais recente de get_cli já instalada',
+        'Versão mais recente de dex_cli já instalada',
     'info_no_file_overwritten': 'Nenhum arquivo foi sobrescrito',
     'info_update_available':
         'Há uma atualização disponível! Versão atual instalada: %s',
@@ -481,8 +481,8 @@ class Locales {
     'optional_parameters': 'Parâmetros opcionais: %s',
     'sucess_page_create': 'Página %s criada com sucesso.',
     'sucess_locale_generate': 'Arquivo de tradução gerado com sucesso.',
-    'sucess_getx_pattern_generated':
-        'Estrutura GetX Pattern gerada com sucesso.',
+    'sucess_riverpod_clean_generated':
+        'Estrutura Riverpod Clean Architecture gerada com sucesso.',
     'sucess_clean_Pattern_generated': 'Estrutura CLEAN gerada com sucesso.',
     'sucess_file_formatted': ' \'%s\' foi formatado com sucesso',
     'sucess_package_removed': 'Pacote: %s removido!',

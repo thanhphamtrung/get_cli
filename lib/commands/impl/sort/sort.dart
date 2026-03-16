@@ -33,11 +33,11 @@ class SortCommand extends Command {
   String? get hint => Translation(LocaleKeys.hint_sort).tr;
 
   @override
-  String get codeSample => 'get sort lib/app \n'
+  String get codeSample => 'dex sort lib/app \n'
       'or\n'
-      'get sort lib/main.dart\n'
+      'dex sort lib/main.dart\n'
       'or\n'
-      'get sort . ';
+      'dex sort . ';
 
   @override
   bool validate() {

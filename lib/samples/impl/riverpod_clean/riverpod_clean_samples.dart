@@ -1,0 +1,20 @@
+// Barrel export for all Riverpod Clean Architecture templates
+export 'riverpod_main.dart';
+export 'riverpod_failures.dart';
+export 'riverpod_exceptions.dart';
+export 'riverpod_usecase_base.dart';
+export 'riverpod_dio_client.dart';
+export 'riverpod_auth_interceptor.dart';
+export 'riverpod_app_router.dart';
+export 'riverpod_route_names.dart';
+export 'riverpod_env.dart';
+export 'riverpod_entity.dart';
+export 'riverpod_model.dart';
+export 'riverpod_repository_interface.dart';
+export 'riverpod_repository_impl.dart';
+export 'riverpod_remote_datasource.dart';
+export 'riverpod_usecase.dart';
+export 'riverpod_provider.dart';
+export 'riverpod_page.dart';
+export 'riverpod_pubspec.dart';
+export 'riverpod_analysis_options.dart';

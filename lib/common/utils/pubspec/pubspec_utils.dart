@@ -25,9 +25,9 @@ class PubspecUtils {
   static final _mapSep = _PubValue<String>(() {
     var yaml = pubspecJson;
 
-    if (yaml.containsKey('get_cli')) {
-      if ((yaml['get_cli'] as Map).containsKey('separator')) {
-        return (yaml['get_cli']['separator'] as String?) ?? '';
+    if (yaml.containsKey('dex_cli')) {
+      if ((yaml['dex_cli'] as Map).containsKey('separator')) {
+        return (yaml['dex_cli']['separator'] as String?) ?? '';
       }
     }
 
@@ -44,9 +44,9 @@ class PubspecUtils {
     () {
       try {
         var yaml = pubspecJson;
-        if (yaml.containsKey('get_cli')) {
-          if ((yaml['get_cli'] as Map).containsKey('sub_folder')) {
-            return (yaml['get_cli']['sub_folder'] as bool?);
+        if (yaml.containsKey('dex_cli')) {
+          if ((yaml['dex_cli'] as Map).containsKey('sub_folder')) {
+            return (yaml['dex_cli']['sub_folder'] as bool?);
           }
         }
       } on Exception catch (_) {}
@@ -151,9 +151,9 @@ class PubspecUtils {
     return containsPackage('get_server');
   }
 
-  static String get getPackageImport => !isServerProject
-      ? "import 'package:get/get.dart';"
-      : "import 'package:get_server/get_server.dart';";
+  // TODO: Phase 2 — replace with Riverpod package imports
+  static String get getPackageImport =>
+      "import 'package:flutter_riverpod/flutter_riverpod.dart';";
 
   // static v.Version? getPackageVersion(String package) {
   //   if (containsPackage(package)) {

@@ -98,7 +98,7 @@ class CreateProjectCommand extends Command {
   }
 
   @override
-  String get codeSample => 'get create project';
+  String get codeSample => 'dex create project';
 
   @override
   int get maxParameters => 0;

@@ -40,11 +40,11 @@ class ShellUtils {
 
   static Future<void> update(
       [bool isGit = false, bool forceUpdate = false]) async {
-    isGit = GetCli.arguments.contains('--git');
-    forceUpdate = GetCli.arguments.contains('-f');
+    isGit = DexCli.arguments.contains('--git');
+    forceUpdate = DexCli.arguments.contains('-f');
     if (!isGit && !forceUpdate) {
       var versionInPubDev =
-          await PubDevApi.getLatestVersionFromPackage('get_cli');
+          await PubDevApi.getLatestVersionFromPackage('dex_cli');
 
       var versionInstalled = await PubspecLock.getVersionCli(disableLog: true);
 
@@ -55,7 +55,7 @@ class ShellUtils {
       }
     }
 
-    LogService.info('Upgrading get_cli …');
+    LogService.info('Upgrading dex_cli …');
 
     try {
       if (Platform.script.path.contains('flutter')) {
@@ -64,7 +64,7 @@ class ShellUtils {
               'flutter pub global activate -sgit https://github.com/jonataslaw/get_cli/',
               verbose: true);
         } else {
-          await run('flutter pub global activate get_cli', verbose: true);
+          await run('flutter pub global activate dex_cli', verbose: true);
         }
       } else {
         if (isGit) {
@@ -72,7 +72,7 @@ class ShellUtils {
               'flutter pub global activate -sgit https://github.com/jonataslaw/get_cli/',
               verbose: true);
         } else {
-          await run('flutter pub global activate get_cli', verbose: true);
+          await run('flutter pub global activate dex_cli', verbose: true);
         }
       }
       return LogService.success(LocaleKeys.sucess_update_cli.tr);
