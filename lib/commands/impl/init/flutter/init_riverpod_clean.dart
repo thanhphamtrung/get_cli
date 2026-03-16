@@ -5,6 +5,7 @@ import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../functions/create/create_list_directory.dart';
 import '../../../../functions/create/create_single_file.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_clean_samples.dart';
+import '../../../../samples/impl/scaffold/scaffold_samples.dart';
 
 /// Initialize a Riverpod Clean Architecture project structure.
 ///
@@ -40,6 +41,11 @@ Future<void> createInitRiverpodClean() async {
   RiverpodUseCaseSample('home').create(skipFormatter: true);
   RiverpodProviderSample('home').create(skipFormatter: true);
   RiverpodPageSample('home').create(skipFormatter: true);
+
+  // Theme (design tokens, app theme, provider)
+  ScaffoldThemeConstantsSample().create(skipFormatter: true);
+  ScaffoldThemeAppThemeSample().create(skipFormatter: true);
+  ScaffoldThemeProviderSample().create(skipFormatter: true);
 
   // Router depends on home page — create after home feature
   RiverpodAppRouterSample().create(skipFormatter: true);
@@ -102,6 +108,7 @@ void _createDirectories() {
     Directory('lib/core/router'),
     Directory('lib/core/config'),
     Directory('lib/core/usecases'),
+    Directory('lib/core/theme'),
     // Home feature
     Directory('lib/features/home/data/datasources'),
     Directory('lib/features/home/data/models'),

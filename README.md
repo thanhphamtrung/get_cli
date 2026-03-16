@@ -38,6 +38,12 @@ dex create repository:auth on auth   # Repository interface + implementation
 dex create page:home                 # Page (ConsumerWidget)
 ```
 
+### Scaffold Features
+
+```bash
+dex scaffold theme               # Material 3 theme (dark/light mode, design tokens)
+```
+
 ### Code Generation
 
 ```bash

@@ -25,6 +25,13 @@ final List<Command> commands = [
     ],
     ['-g'],
   ),
+  CommandParent(
+    'scaffold',
+    [
+      ScaffoldThemeCommand(),
+    ],
+    ['-sc'],
+  ),
   BuildCommand(),
   WatchCommand(),
   HelpCommand(),

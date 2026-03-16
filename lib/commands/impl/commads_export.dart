@@ -16,4 +16,5 @@ export 'install/install.dart';
 export 'remove/remove.dart';
 export 'sort/sort.dart';
 export 'update/update.dart';
+export 'scaffold/theme/scaffold_theme.dart';
 export 'version/version.dart';
