@@ -10,6 +10,10 @@ dart pub global activate -sgit https://github.com/thanhphamtrung/dex_cli
 
 # Local development
 dart pub global activate --source path .
+
+# Native binary (fastest — no pub resolution on each run)
+dart compile exe bin/dex.dart -o bin/dex
+cp bin/dex /usr/local/bin/dex
 ```
 
 ## Commands
