@@ -1,17 +1,17 @@
 name: get_cli
-version: 1.9.1
+version: 1.10.0
 homepage: https://github.com/jonataslaw/get_cli
 description: Official CLI for GetX™ framework to build Flutter and Server
   Applications easily
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.11.0 <4.0.0"
 
 dependencies:
   #  archive: ^3.1.2
   ansicolor: ">=2.0.3 <3.0.0"
   collection: ">=1.19.0 <2.0.0"
-  dart_style: ">=2.3.6 <3.0.0"
-  dcli: ">=6.0.5 <7.0.0"
+  dart_style: ">=3.0.0 <4.0.0"
+  dcli: ">=8.0.0 <9.0.0"
   http: ">=1.2.2 <2.0.0"
   intl: ">=0.19.0 <1.0.0"
   meta: ">=1.15.0 <2.0.0"
@@ -24,8 +24,8 @@ dependencies:
   yaml: ">=3.1.2 <4.0.0"
 
 dev_dependencies:
-  lints: ^4.0.0
-  test: ^1.25.8
+  lints: ^6.0.0
+  test: ^1.30.0
 
 executables:
   get: get

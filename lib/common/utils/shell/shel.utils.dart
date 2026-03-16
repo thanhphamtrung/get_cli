@@ -28,8 +28,6 @@ class ShellUtils {
   static Future<void> flutterCreate(
     String path,
     String? org,
-    String iosLang,
-    String androidLang,
   ) async {
     LogService.info('Running `flutter create $path` …');
 

@@ -53,25 +53,13 @@ class CreateProjectCommand extends Command {
         '${LocaleKeys.example.tr} com.yourcompany \x1B[0m',
       );
 
-      final iosLangMenu =
-          Menu(['Swift', 'Objective-C'], title: LocaleKeys.ask_ios_lang.tr);
-      final iosResult = iosLangMenu.choose();
-
-      var iosLang = iosResult.index == 0 ? 'swift' : 'objc';
-
-      final androidLangMenu =
-          Menu(['Kotlin', 'Java'], title: LocaleKeys.ask_android_lang.tr);
-      final androidResult = androidLangMenu.choose();
-
-      var androidLang = androidResult.index == 0 ? 'kotlin' : 'java';
-
       final linterMenu = Menu([
         'Yes',
         'No',
       ], title: LocaleKeys.ask_use_linter.tr);
       final linterResult = linterMenu.choose();
 
-      await ShellUtils.flutterCreate(path, org, iosLang, androidLang);
+      await ShellUtils.flutterCreate(path, org);
 
       File('test/widget_test.dart').writeAsStringSync('');
 
@@ -84,10 +72,10 @@ class CreateProjectCommand extends Command {
                     include: 'include: package:lints/recommended.yaml')
                 .create();
           } else {
-            await PubspecUtils.addDependencies('flutter_lints',
+            await PubspecUtils.addDependencies('lints',
                 isDev: true, runPubGet: true);
             AnalysisOptionsSample(
-                    include: 'include: package:flutter_lints/flutter.yaml')
+                    include: 'include: package:lints/recommended.yaml')
                 .create();
           }
           break;

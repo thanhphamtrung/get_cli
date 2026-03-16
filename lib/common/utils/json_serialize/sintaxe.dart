@@ -212,6 +212,9 @@ class ClassDefinition {
     return false;
   }
 
+  @override
+  int get hashCode => Object.hash(_name, fields.length);
+
   bool isSubsetOf(ClassDefinition other) {
     final keys = fields.keys.toList();
     final len = keys.length;
@@ -395,7 +398,4 @@ class ClassDefinition {
     }
   }
 
-  @override
-  // TODO: implement hashCode
-  int get hashCode => super.hashCode;
 }
