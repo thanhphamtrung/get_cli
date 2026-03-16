@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:recase/recase.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../functions/create/create_list_directory.dart';
 import '../../../../functions/routes/gorouter_add_route.dart';
@@ -99,7 +100,15 @@ class CreateFeatureCommand extends Command {
 
     LogService.success(
         'Feature "$featureName" created with 8 files in $basePath');
+
+    // Run build_runner to generate .freezed.dart and .g.dart files
+    if (!flags.contains('--no-build')) {
+      await ShellUtils.buildRunner();
+    }
   }
+
+  @override
+  List<String> get acceptedFlags => ['--no-build'];
 
   @override
   String? get hint => 'Generate a full feature module (all 3 layers)';

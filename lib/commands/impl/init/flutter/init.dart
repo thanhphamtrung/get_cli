@@ -13,6 +13,7 @@ class InitCommand extends Command {
   Future<void> execute() async {
     await createInitRiverpodClean();
     await ShellUtils.pubGet();
+    await ShellUtils.buildRunner();
   }
 
   @override

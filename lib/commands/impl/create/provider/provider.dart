@@ -1,6 +1,7 @@
 import 'package:recase/recase.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
 import '../../../../core/structure.dart';
@@ -31,7 +32,15 @@ class CreateProviderCommand extends Command {
         '${Structure.featurePath(feature)}/presentation/providers/${providerName}_provider.dart';
     RiverpodProviderSample(providerName, path: path)
         .create(skipFormatter: true);
+
+    // Run build_runner to generate .g.dart files
+    if (!flags.contains('--no-build')) {
+      await ShellUtils.buildRunner();
+    }
   }
+
+  @override
+  List<String> get acceptedFlags => ['--no-build'];
 
   @override
   String? get hint => Translation(LocaleKeys.hint_create_provider).tr;

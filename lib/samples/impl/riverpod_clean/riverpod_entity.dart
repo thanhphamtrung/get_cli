@@ -17,7 +17,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part '${_name.snakeCase}.freezed.dart';
 
 @freezed
-class ${_name.pascalCase} with _\$${_name.pascalCase} {
+abstract class ${_name.pascalCase} with _\$${_name.pascalCase} {
   const factory ${_name.pascalCase}({
     required String id,
   }) = _${_name.pascalCase};

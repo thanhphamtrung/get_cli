@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
 /// Keep in sync with pubspec.yaml version.
-const String dexCliVersion = '0.0.2';
+const String dexCliVersion = '0.0.3';
 
 class PubspecLock {
   /// Returns the installed CLI version.

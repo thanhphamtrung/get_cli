@@ -23,7 +23,7 @@ class ${_name.pascalCase}Page extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(${_name.camelCase}NotifierProvider);
+    final state = ref.watch(${_name.camelCase}Provider);
 
     return Scaffold(
       appBar: AppBar(

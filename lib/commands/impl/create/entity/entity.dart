@@ -1,6 +1,7 @@
 import 'package:recase/recase.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_entity.dart';
 import '../../../interface/command.dart';
@@ -28,7 +29,15 @@ class CreateEntityCommand extends Command {
     final path =
         '${Structure.featurePath(feature)}/domain/entities/$entityName.dart';
     RiverpodEntitySample(entityName, path: path).create(skipFormatter: true);
+
+    // Run build_runner to generate .freezed.dart files
+    if (!flags.contains('--no-build')) {
+      await ShellUtils.buildRunner();
+    }
   }
+
+  @override
+  List<String> get acceptedFlags => ['--no-build'];
 
   @override
   String? get hint => 'Generate a Freezed entity in a feature';

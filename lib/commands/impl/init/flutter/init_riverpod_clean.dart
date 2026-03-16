@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../functions/create/create_list_directory.dart';
 import '../../../../functions/create/create_single_file.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_clean_samples.dart';
@@ -13,6 +14,9 @@ Future<void> createInitRiverpodClean() async {
   final projectName = _getProjectName();
 
   LogService.info('Creating Riverpod Clean Architecture structure…');
+
+  // Install required dependencies
+  await _installDependencies();
 
   // Create directory tree
   _createDirectories();
@@ -62,6 +66,32 @@ String _getProjectName() {
     }
   } on Exception catch (_) {}
   return 'my_app';
+}
+
+Future<void> _installDependencies() async {
+  // Runtime dependencies
+  await ShellUtils.addPackages([
+    'flutter_riverpod',
+    'riverpod_annotation',
+    'dio',
+    'go_router',
+    'freezed_annotation',
+    'json_annotation',
+    'fpdart',
+    'pretty_dio_logger',
+    'envied',
+    'flutter_secure_storage',
+    'shared_preferences',
+  ]);
+
+  // Dev dependencies
+  await ShellUtils.addPackages([
+    'dev:build_runner',
+    'dev:riverpod_generator',
+    'dev:freezed',
+    'dev:json_serializable',
+    'dev:envied_generator',
+  ]);
 }
 
 void _createDirectories() {

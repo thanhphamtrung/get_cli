@@ -21,7 +21,7 @@ part '${_name.snakeCase}_model.freezed.dart';
 part '${_name.snakeCase}_model.g.dart';
 
 @freezed
-class ${_name.pascalCase}Model with _\$${_name.pascalCase}Model {
+abstract class ${_name.pascalCase}Model with _\$${_name.pascalCase}Model {
   const ${_name.pascalCase}Model._();
 
   const factory ${_name.pascalCase}Model({

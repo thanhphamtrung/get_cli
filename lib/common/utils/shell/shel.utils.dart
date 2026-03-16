@@ -11,9 +11,25 @@ class ShellUtils {
     await run('dart pub get', verbose: true);
   }
 
+  static Future<void> buildRunner() async {
+    LogService.info('Running build_runner …');
+    await run(
+        'dart run build_runner build --delete-conflicting-outputs',
+        verbose: true);
+  }
+
   static Future<void> addPackage(String package) async {
     LogService.info('Adding package $package …');
     await run('dart pub add $package', verbose: true);
+  }
+
+  /// Add multiple packages in a single `dart pub add` call.
+  /// Use 'dev:package_name' prefix for dev dependencies.
+  static Future<void> addPackages(List<String> packages) async {
+    if (packages.isEmpty) return;
+    final args = packages.join(' ');
+    LogService.info('Adding packages: $args');
+    await run('dart pub add $args', verbose: true);
   }
 
   static Future<void> removePackage(String package) async {

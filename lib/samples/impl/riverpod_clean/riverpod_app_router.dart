@@ -16,7 +16,7 @@ import 'route_names.dart';
 part 'app_router.g.dart';
 
 @riverpod
-GoRouter appRouter(AppRouterRef ref) {
+GoRouter appRouter(Ref ref) {
   return GoRouter(
     initialLocation: RouteNames.home,
     routes: [
