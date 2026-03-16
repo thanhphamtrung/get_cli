@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dcli/dcli.dart';
 import 'package:recase/recase.dart';
 
 import '../../../../common/utils/logger/log_utils.dart';
@@ -32,8 +33,8 @@ class CreateFeatureCommand extends Command {
   Future<void> execute() async {
     var featureName = name;
     if (featureName.isEmpty) {
-      LogService.error('Please provide a feature name.');
-      return;
+      featureName = ask('Enter feature name:');
+      if (featureName.isEmpty) return;
     }
     featureName = featureName.snakeCase;
 

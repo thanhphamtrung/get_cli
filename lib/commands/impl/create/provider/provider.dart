@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
@@ -17,16 +17,10 @@ class CreateProviderCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final providerName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (providerName.isEmpty) {
-      LogService.error('Please provide a provider name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final providerName = promptName(name.snakeCase, 'provider');
+    if (providerName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/presentation/providers/${providerName}_provider.dart';

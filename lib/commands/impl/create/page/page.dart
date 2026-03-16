@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
 import '../../../../core/structure.dart';
@@ -19,16 +19,10 @@ class CreatePageCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final pageName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (pageName.isEmpty) {
-      LogService.error('Please provide a page name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final pageName = promptName(name.snakeCase, 'page');
+    if (pageName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/presentation/pages/${pageName}_page.dart';

@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_remote_datasource.dart';
 import '../../../interface/command.dart';
@@ -14,16 +14,10 @@ class CreateDataSourceCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final dsName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (dsName.isEmpty) {
-      LogService.error('Please provide a datasource name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final dsName = promptName(name.snakeCase, 'datasource');
+    if (dsName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/data/datasources/${dsName}_remote_datasource.dart';

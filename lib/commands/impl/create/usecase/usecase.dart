@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_usecase.dart';
 import '../../../interface/command.dart';
@@ -14,16 +14,10 @@ class CreateUseCaseCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final usecaseName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (usecaseName.isEmpty) {
-      LogService.error('Please provide a use case name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final usecaseName = promptName(name.snakeCase, 'use case');
+    if (usecaseName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/domain/usecases/get_$usecaseName.dart';

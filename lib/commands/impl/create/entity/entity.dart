@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_entity.dart';
@@ -15,16 +15,10 @@ class CreateEntityCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final entityName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (entityName.isEmpty) {
-      LogService.error('Please provide an entity name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final entityName = promptName(name.snakeCase, 'entity');
+    if (entityName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/domain/entities/$entityName.dart';

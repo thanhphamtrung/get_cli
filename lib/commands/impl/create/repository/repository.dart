@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_repository_impl.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_repository_interface.dart';
@@ -15,16 +15,10 @@ class CreateRepositoryCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final repoName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (repoName.isEmpty) {
-      LogService.error('Please provide a repository name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final repoName = promptName(name.snakeCase, 'repository');
+    if (repoName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final basePath = Structure.featurePath(feature);
 

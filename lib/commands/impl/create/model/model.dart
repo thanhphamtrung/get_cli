@@ -1,6 +1,6 @@
 import 'package:recase/recase.dart';
 
-import '../../../../common/utils/logger/log_utils.dart';
+import '../../../../common/utils/input/input_prompt_utils.dart';
 import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/structure.dart';
 import '../../../../samples/impl/riverpod_clean/riverpod_model.dart';
@@ -15,16 +15,10 @@ class CreateModelCommand extends Command {
 
   @override
   Future<void> execute() async {
-    final modelName = name.snakeCase;
-    final feature = onCommand.snakeCase;
-    if (modelName.isEmpty) {
-      LogService.error('Please provide a model name.');
-      return;
-    }
-    if (feature.isEmpty) {
-      LogService.error('Please specify target feature with "on" flag.');
-      return;
-    }
+    final modelName = promptName(name.snakeCase, 'model');
+    if (modelName.isEmpty) return;
+    final feature = promptFeature(onCommand.snakeCase);
+    if (feature.isEmpty) return;
 
     final path =
         '${Structure.featurePath(feature)}/data/models/${modelName}_model.dart';
