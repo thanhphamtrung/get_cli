@@ -1,6 +1,7 @@
 import '../../../common/utils/logger/log_utils.dart';
 import '../../../core/internationalization.dart';
 import '../../../core/locales.g.dart';
+import '../../../functions/version/print_dex_cli.dart';
 import '../../commands_list.dart';
 import '../../interface/command.dart';
 
@@ -13,6 +14,7 @@ class HelpCommand extends Command {
 
   @override
   Future<void> execute() async {
+    printDexCli();
     final commandsHelp = _getCommandsHelp(commands, 0);
     LogService.info('''
 List available commands:
