@@ -1,8 +1,8 @@
 extension StringExt on String {
   /// Removes all characters.
   /// ```
-  /// var bestPackage = 'GetX'.removeAll('X');
-  /// print(bestPackage) // Get;
+  /// var example = 'DexCli'.removeAll('Cli');
+  /// print(example) // Dex;
   /// ```
   String removeAll(String value) {
     var newValue = replaceAll(value, '');

@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:process_run/shell_run.dart';
 
 import '../../../core/generator.dart';
 import '../../../core/internationalization.dart';
 import '../../../core/locales.g.dart';
 import '../logger/log_utils.dart';
-import '../pub_dev/pub_dev_api.dart';
-import '../pubspec/pubspec_lock.dart';
 
 class ShellUtils {
   static Future<void> pubGet() async {
@@ -42,38 +38,19 @@ class ShellUtils {
       [bool isGit = false, bool forceUpdate = false]) async {
     isGit = DexCli.arguments.contains('--git');
     forceUpdate = DexCli.arguments.contains('-f');
-    if (!isGit && !forceUpdate) {
-      var versionInPubDev =
-          await PubDevApi.getLatestVersionFromPackage('dex_cli');
 
-      var versionInstalled = await PubspecLock.getVersionCli(disableLog: true);
-
-      if (versionInstalled == versionInPubDev) {
-        return LogService.info(
-            Translation(LocaleKeys.info_cli_last_version_already_installed.tr)
-                .toString());
-      }
-    }
+    // Version check is skipped — dex_cli is not published to pub.dev.
+    // When published, re-enable the pub.dev version comparison here.
 
     LogService.info('Upgrading dex_cli …');
 
     try {
-      if (Platform.script.path.contains('flutter')) {
-        if (isGit) {
-          await run(
-              'flutter pub global activate -sgit https://github.com/jonataslaw/get_cli/',
-              verbose: true);
-        } else {
-          await run('flutter pub global activate dex_cli', verbose: true);
-        }
+      if (isGit) {
+        await run(
+            'dart pub global activate -sgit https://github.com/nickeflame/dex_cli',
+            verbose: true);
       } else {
-        if (isGit) {
-          await run(
-              'flutter pub global activate -sgit https://github.com/jonataslaw/get_cli/',
-              verbose: true);
-        } else {
-          await run('flutter pub global activate dex_cli', verbose: true);
-        }
+        await run('dart pub global activate dex_cli', verbose: true);
       }
       return LogService.success(LocaleKeys.sucess_update_cli.tr);
     } on Exception catch (err) {

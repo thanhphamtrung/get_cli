@@ -146,15 +146,6 @@ class PubspecUtils {
   static bool get nullSafeSupport => !pubSpec.environment['sdk']!
       .allowsAny(VersionConstraint.parse('<2.12.0'));
 
-  /// make sure it is a get_server project
-  static bool get isServerProject {
-    return containsPackage('get_server');
-  }
-
-  // TODO: Phase 2 — replace with Riverpod package imports
-  static String get getPackageImport =>
-      "import 'package:flutter_riverpod/flutter_riverpod.dart';";
-
   // static v.Version? getPackageVersion(String package) {
   //   if (containsPackage(package)) {
   //     pubSpec.dependencies.containsKey(pa)

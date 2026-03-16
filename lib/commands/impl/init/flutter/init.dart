@@ -1,5 +1,4 @@
 import '../../../../common/utils/logger/log_utils.dart';
-import '../../../../common/utils/pubspec/pubspec_utils.dart';
 import '../../../../common/utils/shell/shel.utils.dart';
 import '../../../../core/internationalization.dart';
 import '../../../../core/locales.g.dart';
@@ -13,9 +12,7 @@ class InitCommand extends Command {
   @override
   Future<void> execute() async {
     await createInitRiverpodClean();
-    if (!PubspecUtils.isServerProject) {
-      await ShellUtils.pubGet();
-    }
+    await ShellUtils.pubGet();
   }
 
   @override
