@@ -10,7 +10,7 @@
 | **Test Files** | 1 |
 | **Translation Files** | 8 |
 | **Primary Language** | Dart (SDK >=3.11.0 <4.0.0) |
-| **Repository** | https://github.com/jonataslaw/get_cli |
+| **Repository** | https://github.com/thanhphamtrung/dex_cli |
 
 ## Directory Structure & Breakdown
 

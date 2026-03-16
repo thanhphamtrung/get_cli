@@ -1,6 +1,6 @@
 name: dex_cli
 version: 0.0.2
-homepage: https://github.com/nickeflame/dex_cli
+homepage: https://github.com/thanhphamtrung/dex_cli
 description: Dex CLI — Flutter Clean Architecture + Riverpod scaffolding tool
 environment:
   sdk: ">=3.11.0 <4.0.0"

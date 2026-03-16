@@ -4,7 +4,7 @@
 
 **Version:** 1.10.0
 **Status:** Active Maintenance & Feature Development
-**Repository:** https://github.com/jonataslaw/get_cli
+**Repository:** https://github.com/thanhphamtrung/dex_cli
 
 ## Project Phases
 
@@ -287,7 +287,7 @@ CLI ↔ Template Registry API
 - [ ] Performance optimizations
 
 ### How to Contribute
-1. Fork: https://github.com/jonataslaw/get_cli
+1. Fork: https://github.com/thanhphamtrung/dex_cli
 2. Create feature branch: `git checkout -b feature/my-feature`
 3. Implement & test
 4. Submit PR with description
@@ -366,8 +366,8 @@ CLI ↔ Template Registry API
 ## Feedback & Discussion
 
 For roadmap feedback or feature requests:
-- GitHub Issues: https://github.com/jonataslaw/get_cli/issues
-- GitHub Discussions: https://github.com/jonataslaw/get_cli/discussions
+- GitHub Issues: https://github.com/thanhphamtrung/dex_cli/issues
+- GitHub Discussions: https://github.com/thanhphamtrung/dex_cli/discussions
 - Discord: GetX community server
 
 ---

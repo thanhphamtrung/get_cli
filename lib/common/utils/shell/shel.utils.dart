@@ -47,7 +47,7 @@ class ShellUtils {
     try {
       if (isGit) {
         await run(
-            'dart pub global activate -sgit https://github.com/nickeflame/dex_cli',
+            'dart pub global activate -sgit https://github.com/thanhphamtrung/dex_cli',
             verbose: true);
       } else {
         await run('dart pub global activate dex_cli', verbose: true);

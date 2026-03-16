@@ -1,6 +1,6 @@
-# Get CLI Documentation
+# Dex CLI Documentation
 
-Complete documentation for the Get CLI project. Start here to understand the codebase, architecture, and development standards.
+Complete documentation for the Dex CLI project. Start here to understand the codebase, architecture, and development standards.
 
 ## Quick Navigation
 
@@ -111,9 +111,8 @@ Complete documentation for the Get CLI project. Start here to understand the cod
 
 ## Important Links
 
-- **Repository:** https://github.com/jonataslaw/get_cli
-- **pub.dev:** https://pub.dev/packages/get_cli
-- **GetX Framework:** https://github.com/jonataslaw/getx
+- **Repository:** https://github.com/thanhphamtrung/dex_cli
+- **Forked from:** https://github.com/jonataslaw/get_cli
 
 ## Maintenance
 

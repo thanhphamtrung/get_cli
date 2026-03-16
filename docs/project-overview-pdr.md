@@ -6,7 +6,7 @@
 
 **Version:** 1.10.0
 **Language:** Dart (SDK >=3.11.0 <4.0.0)
-**Repository:** https://github.com/jonataslaw/get_cli
+**Repository:** https://github.com/thanhphamtrung/dex_cli
 **License:** MIT
 
 ## Product Vision
