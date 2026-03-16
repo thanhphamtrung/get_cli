@@ -3,34 +3,28 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
-import '../../../core/internationalization.dart';
-import '../../../core/locales.g.dart';
-import '../../../functions/version/check_dev_version.dart';
-import '../logger/log_utils.dart';
+/// Keep in sync with pubspec.yaml version.
+const String dexCliVersion = '0.0.2';
 
 class PubspecLock {
+  /// Returns the installed CLI version.
+  /// Tries pubspec.lock first (for pub global activate installs),
+  /// then falls back to the compiled-in constant.
   static Future<String?> getVersionCli({bool disableLog = false}) async {
     try {
       var scriptFile = Platform.script.toFilePath();
       var pathToPubLock = join(dirname(scriptFile), '../pubspec.lock');
       final file = File(pathToPubLock);
-      var text = loadYaml(await file.readAsString());
-      if (text['packages']['dex_cli'] == null) {
-        if (isDevVersion()) {
-          if (!disableLog) {
-            LogService.info('Development version');
-          }
+      if (await file.exists()) {
+        var text = loadYaml(await file.readAsString());
+        if (text['packages']?['dex_cli'] != null) {
+          return text['packages']['dex_cli']['version'].toString();
         }
-        return null;
       }
-      var version = text['packages']['dex_cli']['version'].toString();
-      return version;
     } on Exception catch (_) {
-      if (!disableLog) {
-        LogService.error(
-            Translation(LocaleKeys.error_cli_version_not_found).tr);
-      }
-      return null;
+      // Fall through to constant
     }
+    // Fallback: return compiled-in version
+    return dexCliVersion;
   }
 }
